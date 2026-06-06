@@ -1,0 +1,53 @@
+[33mcommit 9dce93ee3ab387f8e57bc7ee5bae26e24277ec4b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 07:03:26 2026 +0200
+
+    fixx
+
+[33mcommit a7fe0e46876bc7879e25729155c190987ab4df6d[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:56:25 2026 +0200
+
+    fix: correct syntax error in main.jsx
+
+[33mcommit f404b07a14710a070c89c25ac5acc59770f9f712[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:54:30 2026 +0200
+
+    fix maybe
+
+[33mcommit 785ae67cba6514fda83cc1aaaf3d472ad26fb8b3[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:44:44 2026 +0200
+
+    test minimal app
+
+[33mcommit 9904e834fd7cde28903e88f33581fb2c2cac8b5f[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:43:28 2026 +0200
+
+    trigger redeploy
+
+[33mcommit a761325e9ad4968fc66b9eaa9275de1b4f43c411[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:41:43 2026 +0200
+
+    final PWA setup: fixed manifest, added icons, responsive App
+
+[33mcommit aa365fc0232fc1215846000de6191ff88005da75[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:33:26 2026 +0200
+
+    full working responsive app
+
+[33mcommit 9f7a58d4c043aa699ada1bbb798230d88ff041e7[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 06:25:17 2026 +0200
+
+    fix: responsive layout
+
+[33mcommit f357c0dfbb46305d3df1c0e4e89ff704f4ed772e[m
+Author: Eugen Sahiti <eugen.sahiti55@gmail.com>
+Date:   Sat Jun 6 05:49:18 2026 +0200
+
+    Initial commit: age verification + Instagram lead collector

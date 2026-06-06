@@ -1,17 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="sq">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test</title>
+
+    <!-- ✅ Viewport: viewport-fit=cover is REQUIRED for iPhone safe areas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Verifikimi</title>
+
+    <!-- PWA manifest -->
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- ✅ Theme color (Safari toolbar) -->
+    <meta name="theme-color" content="#0a0010" />
+
+    <!-- ✅ Apple PWA tags — MUST be inside <head>, not after </html> -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Verifikimi" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+
+    <!-- Apple splash screens (optional but recommended) -->
+    <link rel="apple-touch-startup-image" href="/splash-640x1136.png"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="/splash-750x1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image" href="/splash-1170x2532.png"
+      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Verifikimi" />
-<link rel="apple-touch-icon" href="/icon-192.png" />
 </html>
