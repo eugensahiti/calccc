@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
-const STARS = Array.from({ length: 300 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  r: Math.random() * 2 + 0.3,
-  op: Math.random() * 0.7 + 0.2,
-  dur: Math.random() * 6 + 2,
-  pink: Math.random() > 0.55,
-}));
+// Star Field with parallax motion
+function createStars() {
+  return Array.from({ length: 300 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    r: Math.random() * 2 + 0.3,
+    op: Math.random() * 0.7 + 0.2,
+    dur: Math.random() * 6 + 2,
+    pink: Math.random() > 0.55,
+  }));
+}
 
-function StarField() {
+const initialStars = createStars();
+
+function StarField({ parallaxX, parallaxY }) {
   return (
     <svg style={{ position: "fixed", inset: 0, width: "100vw", height: "100dvh", pointerEvents: "none", zIndex: 0 }}>
-      {STARS.map(s => (
-        <circle key={s.id} cx={`${s.x}%`} cy={`${s.y}%`} r={s.r}
+      {initialStars.map(s => (
+        <circle key={s.id} cx={`calc(${s.x}% + ${parallaxX * 0.5}px)`} cy={`calc(${s.y}% + ${parallaxY * 0.5}px)`} r={s.r}
           fill={s.pink ? "#ffb3d9" : "#ffffff"}
           style={{ opacity: s.op, animation: `twinkle ${s.dur}s ease-in-out infinite alternate` }} />
       ))}
@@ -22,13 +27,13 @@ function StarField() {
   );
 }
 
-const BTN_SIZE = "clamp(48px, min(17vw, 82px), 82px)";
-const BTN_FS = "clamp(18px, min(6.5vw, 30px), 30px)";
-const GRID_GAP = "clamp(4px, min(1.5vw, 8px), 8px)";
-const DISP_FS = "clamp(38px, min(18vw, 92px), 92px)";
-const SIDE_PAD = "clamp(4px, min(1.5vw, 10px), 10px)";
+const BTN_SIZE = "clamp(50px, min(18vw, 86px), 86px)";
+const BTN_FS = "clamp(18px, min(7vw, 30px), 30px)";
+const GRID_GAP = "clamp(4px, min(1.8vw, 10px), 10px)";
+const DISP_FS = "clamp(38px, min(20vw, 96px), 96px)";
+const SIDE_PAD = "clamp(6px, min(2vw, 14px), 14px)";
 
-function Btn({ label, onPress, variant = "num" }) {
+function Btn({ label, onPress, variant = "num", wide = false }) {
   const [down, setDown] = useState(false);
 
   const bg = {
@@ -49,10 +54,9 @@ function Btn({ label, onPress, variant = "num" }) {
         color,
         border: `1px solid ${variant === "accent" ? "rgba(255,130,180,0.4)" : "rgba(255,255,255,0.06)"}`,
         borderRadius: "50%",
-        width: BTN_SIZE,
+        width: wide ? "100%" : BTN_SIZE,
         height: BTN_SIZE,
-        minHeight: "52px",
-        aspectRatio: "1/1",
+        minHeight: "48px",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         fontSize: BTN_FS,
@@ -66,6 +70,7 @@ function Btn({ label, onPress, variant = "num" }) {
         WebkitUserSelect: "none",
         fontFamily: "inherit",
         padding: 0,
+        overflow: "hidden",
       }}>
       {label}
     </button>
@@ -82,12 +87,30 @@ export default function App() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [parallaxX, setParallaxX] = useState(0);
+  const [parallaxY, setParallaxY] = useState(0);
 
   const lastAccel = useRef({ x: 0, y: 0, z: 0 });
   const lastShake = useRef(0);
   const shakeTimeout = useRef(null);
   const phaseTimeout = useRef(null);
   const inputRef = useRef(null);
+
+  // Parallax: track device orientation for star movement
+  useEffect(() => {
+    let smoothX = 0, smoothY = 0;
+    const onDeviceMove = e => {
+      const a = e.accelerationIncludingGravity || e.acceleration;
+      if (!a) return;
+      // Smooth the values
+      smoothX += ((a.y || 0) * 0.8 - smoothX) * 0.15;
+      smoothY += ((a.x || 0) * 0.8 - smoothY) * 0.15;
+      setParallaxX(Math.max(-30, Math.min(30, smoothX)));
+      setParallaxY(Math.max(-30, Math.min(30, smoothY)));
+    };
+    window.addEventListener("devicemotion", onDeviceMove);
+    return () => window.removeEventListener("devicemotion", onDeviceMove);
+  }, []);
 
   const submitInstagramHandle = async (handle) => {
     if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
@@ -188,7 +211,7 @@ export default function App() {
       overflow: "hidden",
       animation: shaking ? "shake 0.55s ease" : "none",
     }}>
-      <StarField />
+      <StarField parallaxX={parallaxX} parallaxY={parallaxY} />
       <div style={{ position: "fixed", top: "-20%", left: "-30%", width: "100%", height: "70%", background: "radial-gradient(ellipse, rgba(200,40,120,0.2) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
       <div style={{ position: "fixed", bottom: "-10%", right: "-20%", width: "80%", height: "60%", background: "radial-gradient(ellipse, rgba(180,30,130,0.12) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
 
@@ -209,22 +232,25 @@ export default function App() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          padding: `${SIDE_PAD} ${SIDE_PAD} max(env(safe-area-inset-bottom, 6px), 20px)`,
+          paddingLeft: SIDE_PAD,
+          paddingRight: SIDE_PAD,
+          paddingTop: SIDE_PAD,
+          paddingBottom: `max(env(safe-area-inset-bottom, 6px), 16px)`,
           zIndex: 1,
         }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(20px, min(6vw, 40px), 40px)" }}>
-            <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(11px, min(3.5vw, 16px), 16px)", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "clamp(4px, min(1.5vw, 8px), 8px)", fontWeight: "400" }}>Viti i Lindjes</p>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(16px, min(5vw, 32px), 32px)" }}>
+            <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(11px, min(3.5vw, 14px), 14px)", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "clamp(3px, min(1.5vw, 6px), 6px)", fontWeight: "400" }}>Viti i Lindjes</p>
             <div style={{
               textAlign: "right",
               fontSize: year ? DISP_FS : DISP_FS,
               fontWeight: "200",
               color: year ? "#fff" : "rgba(255,255,255,0.06)",
-              letterSpacing: "clamp(-2px, min(-1.5vw, -6px), -6px)",
+              letterSpacing: "clamp(-2px, min(-1.5vw, -4px), -4px)",
               lineHeight: "1",
               wordBreak: "break-all",
               minHeight: "1em",
             }}>{year || ""}</div>
-            {error && <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "clamp(11px, min(3vw, 14px), 14px)", textAlign: "right", marginTop: "clamp(8px, min(3vw, 14px), 14px)" }}>{error}</p>}
+            {error && <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "clamp(10px, min(3vw, 13px), 13px)", textAlign: "right", marginTop: "clamp(6px, min(3vw, 12px), 12px)" }}>{error}</p>}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: GRID_GAP }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: GRID_GAP }}>
@@ -239,10 +265,10 @@ export default function App() {
                 <div/>
               </div>
             ))}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: GRID_GAP }}>
-              <Btn label="0" onPress={() => digit("0")} />
+            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: GRID_GAP }}>
+              <Btn label="0" wide onPress={() => digit("0")} />
               <Btn label="·" onPress={() => {}} />
-              <div/><div/>
+              <div/>
             </div>
           </div>
         </div>
