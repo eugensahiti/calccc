@@ -23,12 +23,12 @@ function StarField() {
   );
 }
 
-// Bigger icons, more spacing
-const BTN_SIZE = "clamp(60px, min(18vw, 100px), 100px)";
-const BTN_FS = "clamp(22px, min(8vw, 36px), 36px)";
-const GRID_GAP = "clamp(8px, min(2.5vw, 16px), 16px)";
+// Much bigger buttons, pushed down
+const BTN_SIZE = "clamp(68px, min(22vw, 120px), 120px)";
+const BTN_FS = "clamp(26px, min(9vw, 42px), 42px)";
+const GRID_GAP = "clamp(10px, min(3vw, 20px), 20px)";
 const DISP_FS = "clamp(52px, min(24vw, 120px), 120px)";
-const SIDE_PAD = "clamp(16px, min(5vw, 36px), 36px)";
+const SIDE_PAD = "clamp(16px, min(5vw, 40px), 40px)";
 
 function Btn({ label, onPress, variant = "num", wide = false }) {
   const [down, setDown] = useState(false);
@@ -53,7 +53,7 @@ function Btn({ label, onPress, variant = "num", wide = false }) {
         borderRadius: "50%",
         width: wide ? "100%" : BTN_SIZE,
         height: BTN_SIZE,
-        minHeight: "52px",
+        minHeight: "56px",
         aspectRatio: wide ? "unset" : "1/1",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -126,6 +126,23 @@ export default function App() {
     phaseTimeout.current = setTimeout(() => setPhase(age < 18 ? "under" : "insta"), 250);
   }, [phase, year]);
 
+  // Auto-verify when 4 digits entered (by shaking)
+  useEffect(() => {
+    if (year.length === 4) {
+      // Automatically trigger shake verification
+      if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
+        DeviceMotionEvent.requestPermission().catch(() => {});
+      }
+      const age = new Date().getFullYear() - parseInt(year, 10);
+      if (shakeTimeout.current) clearTimeout(shakeTimeout.current);
+      if (phaseTimeout.current) clearTimeout(phaseTimeout.current);
+      setShaking(true);
+      setError("");
+      shakeTimeout.current = setTimeout(() => setShaking(false), 550);
+      phaseTimeout.current = setTimeout(() => setPhase(age < 18 ? "under" : "insta"), 250);
+    }
+  }, [year]);
+
   const handleInstaConfirm = async () => {
     const trimmed = insta.trim();
     if (!trimmed) return;
@@ -160,12 +177,6 @@ export default function App() {
     return () => window.removeEventListener("devicemotion", onMotion);
   }, [verify]);
 
-  useEffect(() => {
-    const onKey = e => { if (e.key === "Enter") verify(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [verify]);
-
   const digit = d => { if (year.length < 4) { setYear(p => p + d); setError(""); } };
   const reset = () => { setYear(""); setPhase("calc"); setInsta(""); setError(""); setSubmitError(""); setIsSubmitting(false); };
 
@@ -197,13 +208,13 @@ export default function App() {
         input:focus{outline:none}
       `}</style>
 
-        {phase === "calc" && (
+      {phase === "calc" && (
         <div style={{
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-start",
-          paddingTop: "clamp(30px, min(12vh, 100px), 100px)",
+          justifyContent: "flex-end",
+          paddingTop: SIDE_PAD,
           paddingLeft: SIDE_PAD,
           paddingRight: SIDE_PAD,
           paddingBottom: `max(env(safe-area-inset-bottom, 6px), 20px)`,
@@ -221,10 +232,7 @@ export default function App() {
               wordBreak: "break-all",
               minHeight: "1em",
             }}>{year || ""}</div>
-            {error
-              ? <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "clamp(11px, min(3vw, 14px), 14px)", textAlign: "right", marginTop: "clamp(8px, min(3vw, 14px), 14px)" }}>{error}</p>
-              : year.length === 4 && <p style={{ color: "rgba(255,150,200,0.4)", fontSize: "clamp(10px, min(2.5vw, 13px), 13px)", textAlign: "right", marginTop: "clamp(6px, min(2.5vw, 12px), 12px)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Dridheni telefonin ose shtypni butonin poshtë</p>
-            }
+            {error && <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "clamp(11px, min(3vw, 14px), 14px)", textAlign: "right", marginTop: "clamp(8px, min(3vw, 14px), 14px)" }}>{error}</p>}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: GRID_GAP }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: GRID_GAP }}>
@@ -239,28 +247,11 @@ export default function App() {
                 <div/>
               </div>
             ))}
-            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: GRID_GAP, marginBottom: "clamp(4px, min(2vw, 12px), 12px)" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: GRID_GAP }}>
               <Btn label="0" wide onPress={() => digit("0")} />
               <Btn label="·" onPress={() => {}} />
               <div/>
             </div>
-            {year.length === 4 && (
-              <button onClick={verify} style={{
-                width: "100%",
-                padding: "clamp(14px, min(4vw, 24px), 24px)",
-                background: "linear-gradient(135deg, rgba(255,100,180,0.3), rgba(230,60,140,0.5))",
-                border: "1px solid rgba(255,150,200,0.35)",
-                borderRadius: "clamp(16px, min(5vw, 32px), 32px)",
-                color: "#fff",
-                fontSize: "clamp(16px, min(4.5vw, 22px), 22px)",
-                fontWeight: "400",
-                cursor: "pointer",
-                letterSpacing: "0.05em",
-                animation: "fadeUp 0.3s ease-out",
-                backdropFilter: "blur(14px)",
-                WebkitBackdropFilter: "blur(14px)",
-              }}>Vazhdo / Verifiko ✦</button>
-            )}
           </div>
         </div>
       )}
