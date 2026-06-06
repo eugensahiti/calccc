@@ -23,12 +23,12 @@ function StarField() {
   );
 }
 
-// Balanced sizes – big but clean, nothing gets cut
-const BTN_SIZE = "clamp(56px, min(17vw, 95px), 95px)";
-const BTN_FS = "clamp(20px, min(7.5vw, 34px), 34px)";
-const GRID_GAP = "clamp(6px, min(2vw, 14px), 14px)";
-const DISP_FS = "clamp(48px, min(22vw, 110px), 110px)";
-const SIDE_PAD = "clamp(14px, min(4vw, 32px), 32px)";
+// Bigger icons, more spacing
+const BTN_SIZE = "clamp(60px, min(18vw, 100px), 100px)";
+const BTN_FS = "clamp(22px, min(8vw, 36px), 36px)";
+const GRID_GAP = "clamp(8px, min(2.5vw, 16px), 16px)";
+const DISP_FS = "clamp(52px, min(24vw, 120px), 120px)";
+const SIDE_PAD = "clamp(16px, min(5vw, 36px), 36px)";
 
 function Btn({ label, onPress, variant = "num", wide = false }) {
   const [down, setDown] = useState(false);
@@ -203,13 +203,13 @@ export default function App() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
-          paddingTop: "clamp(10px, min(6vh, 60px), 60px)",
+          paddingTop: "clamp(30px, min(12vh, 100px), 100px)",
           paddingLeft: SIDE_PAD,
           paddingRight: SIDE_PAD,
           paddingBottom: `max(env(safe-area-inset-bottom, 6px), 20px)`,
           zIndex: 1,
         }}>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(10px, min(4vw, 22px), 22px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(20px, min(6vw, 40px), 40px)" }}>
             <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(11px, min(3.5vw, 16px), 16px)", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "clamp(4px, min(1.5vw, 8px), 8px)", fontWeight: "400" }}>Viti i Lindjes</p>
             <div style={{
               textAlign: "right",
