@@ -2,31 +2,27 @@
 <html lang="sq">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- ✅ Viewport: viewport-fit=cover is REQUIRED for iPhone safe areas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
 
     <title>Verifikimi</title>
 
     <!-- PWA manifest -->
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- ✅ Theme color (Safari toolbar) -->
+    <!-- Theme color (Safari toolbar, Android task switcher) -->
     <meta name="theme-color" content="#0a0010" />
 
-    <!-- ✅ Apple PWA tags — MUST be inside <head>, not after </html> -->
+    <!-- Apple iOS PWA meta tags -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Verifikimi" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />
 
-    <!-- Apple splash screens (optional but recommended) -->
-    <link rel="apple-touch-startup-image" href="/splash-640x1136.png"
-      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
-    <link rel="apple-touch-startup-image" href="/splash-750x1334.png"
-      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
-    <link rel="apple-touch-startup-image" href="/splash-1170x2532.png"
-      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
+    <!-- Apple touch icons – multiple sizes for various iOS devices -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/icon-192.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/icon-192.png" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   </head>
   <body>
     <div id="root"></div>

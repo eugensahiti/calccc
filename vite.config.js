@@ -4,11 +4,19 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon-192.png', 'icon-512.png'],
+      includeAssets: ['icon-192.png', 'icon-512.png', 'vite.svg'],
       manifest: {
         name: 'Verifikimi',
         short_name: 'Verifikimi',
@@ -19,6 +27,10 @@ export default defineConfig({
         orientation: 'portrait',
         start_url: '/',
         scope: '/',
+        ios: {
+          appleMobileWebAppCapable: 'yes',
+          appleMobileWebAppStatusBarStyle: 'black-translucent',
+        },
         icons: [
           {
             src: '/icon-192.png',
@@ -32,6 +44,18 @@ export default defineConfig({
             type: 'image/png',
             purpose: 'any maskable',
           },
+          {
+            src: '/icon-192.png',
+            sizes: '180x180',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+          {
+            src: '/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
         ],
       },
       workbox: {
@@ -44,9 +68,10 @@ export default defineConfig({
           },
         ],
       },
-      // iOS Safari requires this — generates the SW even in dev
+      // Also serve SW in dev so it works when testing "Add to Home Screen"
       devOptions: {
-        enabled: false,
+        enabled: true,
+        type: 'module',
       },
     }),
   ],

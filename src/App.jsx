@@ -47,10 +47,10 @@ function Btn({ label, onPress, variant = "num", wide = false }) {
         borderRadius: "50%",
         width: wide ? "100%" : undefined,
         aspectRatio: wide ? "unset" : "1/1",
-        height: "78px",
+        height: "var(--btn-h, 78px)",
         backdropFilter: "blur(18px)",
         WebkitBackdropFilter: "blur(18px)",
-        fontSize: "28px",
+        fontSize: "var(--btn-fs, 28px)",
         fontWeight: "300",
         cursor: "pointer",
         transform: down ? "scale(0.92)" : "scale(1)",
@@ -164,13 +164,13 @@ export default function App() {
 
   return (
     <div style={{
-      minHeight: "100vh",
+      minHeight: "100dvh",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       background: "#0a0010",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
-      padding: "12px",   // gives margin on small screens
+      padding: "12px",
     }}>
       <style>{`
         @keyframes twinkle { from{opacity:.15} to{opacity:1} }
@@ -181,6 +181,56 @@ export default function App() {
         * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         input::placeholder{color:rgba(255,180,215,0.3)}
         input:focus{outline:none}
+
+        :root {
+          --btn-h: 78px;
+          --btn-fs: 28px;
+          --disp-fs: 88px;
+          --grid-gap: 12px;
+          --calc-pad-v: 40px;
+          --calc-pad-h: 22px;
+          --insta-pad-v: 48px;
+          --insta-pad-h: 32px;
+        }
+
+        @media (max-width: 380px) {
+          :root {
+            --btn-h: 56px;
+            --btn-fs: 20px;
+            --disp-fs: 48px;
+            --grid-gap: 6px;
+            --calc-pad-v: 18px;
+            --calc-pad-h: 12px;
+            --insta-pad-v: 24px;
+            --insta-pad-h: 14px;
+          }
+        }
+
+        @media (min-width: 381px) and (max-width: 440px) {
+          :root {
+            --btn-h: 62px;
+            --btn-fs: 22px;
+            --disp-fs: 56px;
+            --grid-gap: 8px;
+            --calc-pad-v: 24px;
+            --calc-pad-h: 14px;
+            --insta-pad-v: 28px;
+            --insta-pad-h: 18px;
+          }
+        }
+
+        @media (min-width: 441px) and (max-width: 520px) {
+          :root {
+            --btn-h: 68px;
+            --btn-fs: 24px;
+            --disp-fs: 68px;
+            --grid-gap: 10px;
+            --calc-pad-v: 30px;
+            --calc-pad-h: 18px;
+            --insta-pad-v: 36px;
+            --insta-pad-h: 22px;
+          }
+        }
       `}</style>
 
       {/* Main card – fully responsive */}
@@ -206,26 +256,26 @@ export default function App() {
         </div>
 
         {phase === "calc" && (
-          <div style={{ padding: "40px 22px 30px", display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-end" }}>
+          <div style={{ padding: "var(--calc-pad-v, 40px) var(--calc-pad-h, 22px) 30px", display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-end" }}>
             <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "15px" }}>
               <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "12px", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "5px", fontWeight: "400" }}>Viti i Lindjes</p>
-              <div style={{ textAlign: "right", fontSize: year ? "88px" : "68px", fontWeight: "200", color: year ? "#fff" : "rgba(255,255,255,0.15)", letterSpacing: "-4px", lineHeight: "1" }}>{year || "VVVV"}</div>
+              <div style={{ textAlign: "right", fontSize: year ? "var(--disp-fs, 88px)" : "68px", fontWeight: "200", color: year ? "#fff" : "rgba(255,255,255,0.15)", letterSpacing: "-4px", lineHeight: "1" }}>{year || "VVVV"}</div>
               {error ? <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "12px", textAlign: "right", marginTop: "12px" }}>{error}</p> : year.length === 4 && <p style={{ color: "rgba(255,150,200,0.4)", fontSize: "11px", textAlign: "right", marginTop: "10px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Dridheni telefonin ose shtypni butonin poshtë</p>}
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "12px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--grid-gap, 12px)" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--grid-gap, 12px)" }}>
                 <Btn label="AC" variant="top" onPress={() => { setYear(""); setError(""); }} />
                 <Btn label="+/-" variant="top" onPress={() => {}} />
                 <Btn label="%" variant="top" onPress={() => {}} />
                 <Btn label="⌫" variant="accent" onPress={() => { setYear(p => p.slice(0,-1)); setError(""); }} />
               </div>
               {[["7","8","9"],["4","5","6"],["1","2","3"]].map((row, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "12px" }}>
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--grid-gap, 12px)" }}>
                   {row.map(d => <Btn key={d} label={d} onPress={() => digit(d)} />)}
                   <div/>
                 </div>
               ))}
-              <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "12px", marginBottom: "10px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "var(--grid-gap, 12px)", marginBottom: "10px" }}>
                 <Btn label="0" wide onPress={() => digit("0")} />
                 <Btn label="·" onPress={() => {}} />
                 <div/>
@@ -236,7 +286,7 @@ export default function App() {
         )}
 
         {phase === "under" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "18px", padding: "40px", animation: "fadeUp .5s ease" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "18px", padding: "var(--calc-pad-v, 40px) var(--calc-pad-h, 22px)", animation: "fadeUp .5s ease" }}>
             <div style={{ fontSize: "64px" }}>🚫</div>
             <p style={{ color: "#fff", fontSize: "24px", fontWeight: "300" }}>Shumë i ri</p>
             <p style={{ color: "rgba(255,160,210,0.5)", fontSize: "14px", fontWeight: "300", textAlign: "center", lineHeight: "1.7" }}>Duhet të jeni të paktën 18 vjeç ose më shumë për të vazhduar më tej.</p>
@@ -245,7 +295,7 @@ export default function App() {
         )}
 
         {phase === "insta" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, padding: "48px 32px", gap: "24px", animation: "fadeUp .45s ease" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, padding: "var(--insta-pad-v, 48px) var(--insta-pad-h, 32px)", gap: "var(--grid-gap, 12px)", animation: "fadeUp .45s ease" }}>
             <div style={{ width: "80px", height: "80px", borderRadius: "22px", background: "linear-gradient(135deg,#833ab4,#fd1d1d 50%,#fcb045)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 10px 40px rgba(200,60,100,0.4)" }}>
               <svg width="38" height="38" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </div>
@@ -266,7 +316,7 @@ export default function App() {
         )}
 
         {phase === "success" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "18px", padding: "40px", animation: "fadeUp .5s ease" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "18px", padding: "var(--calc-pad-v, 40px) var(--calc-pad-h, 22px)", animation: "fadeUp .5s ease" }}>
             <div style={{ position: "relative", width: "90px", height: "90px", marginBottom: "8px" }}>
               <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "radial-gradient(circle,rgba(230,60,140,0.25) 0%,transparent 70%)", animation: "glowIn 2.5s ease-in-out infinite" }}/>
               <div style={{ width: "90px", height: "90px", borderRadius: "50%", background: "linear-gradient(135deg,rgba(220,60,130,0.2),rgba(150,20,100,0.1))", border: "1px solid rgba(230,80,150,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "36px" }}>✦</div>
