@@ -202,7 +202,7 @@ export default function App() {
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "flex-end",
+          justifyContent: "center",
           padding: `${SIDE_PAD} ${SIDE_PAD} max(env(safe-area-inset-bottom, 6px), 20px)`,
           zIndex: 1,
         }}>
@@ -278,7 +278,6 @@ export default function App() {
           </div>
           <div style={{ textAlign: "center" }}>
             <p style={{ color: "#fff", fontSize: "clamp(22px, min(6vw, 30px), 30px)", fontWeight: "300", marginBottom: "clamp(4px, min(2vw, 10px), 10px)" }}>Verifikimi u Krye ✦</p>
-            <p style={{ color: "rgba(255,160,210,0.5)", fontSize: "clamp(13px, min(3.5vw, 17px), 17px)", fontWeight: "300", lineHeight: "1.7" }}>Shkruani Instagram-in tuaj – do të marr njoftim menjëherë.</p>
           </div>
           <div style={{ width: "100%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,120,180,0.2)", borderRadius: "clamp(14px, min(3.5vw, 20px), 20px)", padding: "clamp(14px, min(3.5vw, 20px), 20px)", display: "flex", alignItems: "center", gap: "clamp(8px, min(2vw, 12px), 12px)", backdropFilter: "blur(24px)" }}>
             <span style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(20px, min(6vw, 26px), 26px)", fontWeight: "200" }}>@</span>
