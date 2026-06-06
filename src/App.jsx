@@ -196,6 +196,7 @@ export default function App() {
         @keyframes twinkle { from{opacity:.15} to{opacity:1} }
         @keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-10px)} 30%{transform:translateX(9px)} 50%{transform:translateX(-7px)} 70%{transform:translateX(6px)} 85%{transform:translateX(-3px)} }
         @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes glowIn { 0%,100%{opacity:.35} 50%{opacity:.75} }
         @keyframes orbit { from{transform:rotate(0deg) translateX(46px) rotate(0deg)} to{transform:rotate(360deg) translateX(46px) rotate(-360deg)} }
         * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         input::placeholder{color:rgba(255,180,215,0.3)}
