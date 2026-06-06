@@ -163,7 +163,15 @@ function App() {
   const reset = () => { setYear(""); setPhase("calc"); setInsta(""); setError(""); setSubmitError(""); setIsSubmitting(false); };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0010", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif" }}>
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#0a0010",
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
+      padding: "10px",   // 👈 adds space around the card on small screens
+    }}>
       <style>{`
         @keyframes twinkle { from{opacity:.15} to{opacity:1} }
         @keyframes shake { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-10px)} 30%{transform:translateX(9px)} 50%{transform:translateX(-7px)} 70%{transform:translateX(6px)} 85%{transform:translateX(-3px)} }
@@ -175,7 +183,21 @@ function App() {
         input:focus{outline:none}
       `}</style>
 
-      <div style={{ position: "relative", width: "390px", minHeight: "780px", borderRadius: "48px", overflow: "hidden", background: "linear-gradient(170deg,#140018 0%,#0e000f 45%,#160020 100%)", border: "1px solid rgba(255,100,180,0.12)", boxShadow: "0 50px 100px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 60px rgba(200,50,120,0.05)", animation: shaking ? "shake 0.55s ease" : "none", display: "flex", flexDirection: "column" }}>
+      {/* Main card – now responsive */}
+      <div style={{
+        position: "relative",
+        width: "100%",
+        maxWidth: "480px",
+        margin: "0 auto",
+        borderRadius: "48px",
+        overflow: "hidden",
+        background: "linear-gradient(170deg,#140018 0%,#0e000f 45%,#160020 100%)",
+        border: "1px solid rgba(255,100,180,0.12)",
+        boxShadow: "0 50px 100px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 60px rgba(200,50,120,0.05)",
+        animation: shaking ? "shake 0.55s ease" : "none",
+        display: "flex",
+        flexDirection: "column"
+      }}>
         {/* Ambient layers */}
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           <StarField />

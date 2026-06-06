@@ -1,0 +1,21 @@
+{
+  "name": "Verifikimi",
+  "short_name": "Verifikimi",
+  "description": "Age verification & Instagram collector",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0a0010",
+  "background_color": "#0a0010",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
