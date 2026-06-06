@@ -197,16 +197,19 @@ export default function App() {
         input:focus{outline:none}
       `}</style>
 
-      {phase === "calc" && (
+        {phase === "calc" && (
         <div style={{
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          padding: `${SIDE_PAD} ${SIDE_PAD} max(env(safe-area-inset-bottom, 6px), 20px)`,
+          justifyContent: "flex-start",
+          paddingTop: "clamp(10px, min(6vh, 60px), 60px)",
+          paddingLeft: SIDE_PAD,
+          paddingRight: SIDE_PAD,
+          paddingBottom: `max(env(safe-area-inset-bottom, 6px), 20px)`,
           zIndex: 1,
         }}>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(10px, min(4vw, 22px), 22px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(10px, min(4vw, 22px), 22px)" }}>
             <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(11px, min(3.5vw, 16px), 16px)", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "clamp(4px, min(1.5vw, 8px), 8px)", fontWeight: "400" }}>Viti i Lindjes</p>
             <div style={{
               textAlign: "right",
