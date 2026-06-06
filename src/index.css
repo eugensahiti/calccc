@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background: radial-gradient(ellipse at 50% 0%, #4a0020 0%, #200010 40%, #0a0010 100%);
+  background: linear-gradient(170deg,#1a0020 0%,#120018 45%,#1e0028 100%);
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

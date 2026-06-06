@@ -177,9 +177,9 @@ export default function App() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "radial-gradient(ellipse at 50% 0%, #4a0020 0%, #200010 40%, #0a0010 100%)",
+      background: "linear-gradient(170deg,#1a0020 0%,#120018 45%,#1e0028 100%)",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
-      padding: "clamp(4px, min(2vw, 12px), 12px)",
+      padding: 0,
     }}>
       <style>{`
         @keyframes twinkle { from{opacity:.15} to{opacity:1} }
@@ -195,16 +195,14 @@ export default function App() {
       <div style={{
         position: "relative",
         width: "100%",
-        maxWidth: "600px",
+        maxWidth: "700px",
+        minHeight: "100dvh",
         margin: "0 auto",
-        borderRadius: "clamp(24px, min(10vw, 56px), 56px)",
         overflow: "hidden",
         background: "linear-gradient(170deg,#1a0020 0%,#120018 45%,#1e0028 100%)",
-        border: "1px solid rgba(255,100,180,0.15)",
-        boxShadow: "0 30px 80px rgba(200,0,100,0.2), 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 80px rgba(200,50,120,0.06)",
-        animation: shaking ? "shake 0.55s ease" : "none",
         display: "flex",
         flexDirection: "column",
+        animation: shaking ? "shake 0.55s ease" : "none",
       }}>
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           <StarField />
