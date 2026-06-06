@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 // Star Field Component
 const STARS = Array.from({ length: 140 }, (_, i) => ({
@@ -66,10 +66,10 @@ function Btn({ label, onPress, variant = "num", wide = false }) {
   );
 }
 
-// Web3Forms configuration – replace with your own key
+// Web3Forms configuration – replace with your actual key
 const WEB3FORMS_ACCESS_KEY = "47521ab4-d765-44e7-a06d-082f37c2dd15";
 
-function App() {
+export default function App() {
   const [year, setYear]   = useState("");
   const [phase, setPhase] = useState("calc");
   const [shaking, setShaking] = useState(false);
@@ -170,7 +170,7 @@ function App() {
       justifyContent: "center",
       background: "#0a0010",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
-      padding: "10px",   // 👈 adds space around the card on small screens
+      padding: "12px",   // gives margin on small screens
     }}>
       <style>{`
         @keyframes twinkle { from{opacity:.15} to{opacity:1} }
@@ -183,11 +183,11 @@ function App() {
         input:focus{outline:none}
       `}</style>
 
-      {/* Main card – now responsive */}
+      {/* Main card – fully responsive */}
       <div style={{
         position: "relative",
         width: "100%",
-        maxWidth: "480px",
+        maxWidth: "500px",
         margin: "0 auto",
         borderRadius: "48px",
         overflow: "hidden",
@@ -281,5 +281,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
