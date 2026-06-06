@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 
-// Star Field Component – full viewport, no boundaries
 const STARS = Array.from({ length: 300 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
@@ -23,14 +22,13 @@ function StarField() {
   );
 }
 
-// Much bigger buttons, pushed down
-const BTN_SIZE = "clamp(68px, min(22vw, 120px), 120px)";
-const BTN_FS = "clamp(26px, min(9vw, 42px), 42px)";
-const GRID_GAP = "clamp(10px, min(3vw, 20px), 20px)";
-const DISP_FS = "clamp(52px, min(24vw, 120px), 120px)";
-const SIDE_PAD = "clamp(16px, min(5vw, 40px), 40px)";
+const BTN_SIZE = "clamp(50px, min(17vw, 92px), 92px)";
+const BTN_FS = "clamp(18px, min(6.5vw, 32px), 32px)";
+const GRID_GAP = "clamp(5px, min(1.8vw, 10px), 10px)";
+const DISP_FS = "clamp(40px, min(18vw, 92px), 92px)";
+const SIDE_PAD = "clamp(8px, min(2.5vw, 18px), 18px)";
 
-function Btn({ label, onPress, variant = "num", wide = false }) {
+function Btn({ label, onPress, variant = "num" }) {
   const [down, setDown] = useState(false);
 
   const bg = {
@@ -51,10 +49,10 @@ function Btn({ label, onPress, variant = "num", wide = false }) {
         color,
         border: `1px solid ${variant === "accent" ? "rgba(255,130,180,0.4)" : "rgba(255,255,255,0.06)"}`,
         borderRadius: "50%",
-        width: wide ? "100%" : BTN_SIZE,
+        width: BTN_SIZE,
         height: BTN_SIZE,
-        minHeight: "56px",
-        aspectRatio: wide ? "unset" : "1/1",
+        minHeight: "52px",
+        aspectRatio: "1/1",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         fontSize: BTN_FS,
@@ -126,10 +124,8 @@ export default function App() {
     phaseTimeout.current = setTimeout(() => setPhase(age < 18 ? "under" : "insta"), 250);
   }, [phase, year]);
 
-  // Auto-verify when 4 digits entered (by shaking)
   useEffect(() => {
     if (year.length === 4) {
-      // Automatically trigger shake verification
       if (typeof DeviceMotionEvent !== "undefined" && typeof DeviceMotionEvent.requestPermission === "function") {
         DeviceMotionEvent.requestPermission().catch(() => {});
       }
@@ -193,8 +189,6 @@ export default function App() {
       animation: shaking ? "shake 0.55s ease" : "none",
     }}>
       <StarField />
-
-      {/* Glow layers */}
       <div style={{ position: "fixed", top: "-20%", left: "-30%", width: "100%", height: "70%", background: "radial-gradient(ellipse, rgba(200,40,120,0.2) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
       <div style={{ position: "fixed", bottom: "-10%", right: "-20%", width: "80%", height: "60%", background: "radial-gradient(ellipse, rgba(180,30,130,0.12) 0%, transparent 60%)", pointerEvents: "none", zIndex: 0 }} />
 
@@ -214,10 +208,7 @@ export default function App() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          paddingTop: SIDE_PAD,
-          paddingLeft: SIDE_PAD,
-          paddingRight: SIDE_PAD,
-          paddingBottom: `max(env(safe-area-inset-bottom, 6px), 20px)`,
+          padding: `${SIDE_PAD} ${SIDE_PAD} max(env(safe-area-inset-bottom, 6px), 20px)`,
           zIndex: 1,
         }}>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(20px, min(6vw, 40px), 40px)" }}>
@@ -247,10 +238,10 @@ export default function App() {
                 <div/>
               </div>
             ))}
-            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: GRID_GAP }}>
-              <Btn label="0" wide onPress={() => digit("0")} />
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: GRID_GAP }}>
+              <Btn label="0" onPress={() => digit("0")} />
               <Btn label="·" onPress={() => {}} />
-              <div/>
+              <div/><div/>
             </div>
           </div>
         </div>
