@@ -23,12 +23,12 @@ function StarField() {
   );
 }
 
-// Sizes tuned for iPhone 16 Pro Max (430px viewport) and up
-const BTN_SIZE = "clamp(64px, min(20vw, 110px), 110px)";
-const BTN_FS = "clamp(24px, min(9vw, 40px), 40px)";
-const GRID_GAP = "clamp(8px, min(2.5vw, 16px), 16px)";
-const DISP_FS = "clamp(56px, min(26vw, 130px), 130px)";
-const SIDE_PAD = "clamp(16px, min(5vw, 40px), 40px)";
+// Balanced sizes – big but clean, nothing gets cut
+const BTN_SIZE = "clamp(56px, min(17vw, 95px), 95px)";
+const BTN_FS = "clamp(20px, min(7.5vw, 34px), 34px)";
+const GRID_GAP = "clamp(6px, min(2vw, 14px), 14px)";
+const DISP_FS = "clamp(48px, min(22vw, 110px), 110px)";
+const SIDE_PAD = "clamp(14px, min(4vw, 32px), 32px)";
 
 function Btn({ label, onPress, variant = "num", wide = false }) {
   const [down, setDown] = useState(false);
@@ -203,7 +203,7 @@ export default function App() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          padding: `${SIDE_PAD} ${SIDE_PAD} max(env(safe-area-inset-bottom, 8px), ${GRID_GAP}, 24px)`,
+          padding: `${SIDE_PAD} ${SIDE_PAD} max(env(safe-area-inset-bottom, 6px), 20px)`,
           zIndex: 1,
         }}>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(10px, min(4vw, 22px), 22px)" }}>
