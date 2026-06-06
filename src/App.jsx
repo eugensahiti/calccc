@@ -235,7 +235,7 @@ export default function App() {
           paddingLeft: SIDE_PAD,
           paddingRight: SIDE_PAD,
           paddingTop: SIDE_PAD,
-          paddingBottom: `max(env(safe-area-inset-bottom, 6px), 16px)`,
+          paddingBottom: `max(env(safe-area-inset-bottom, 20px), 28px)`,
           zIndex: 1,
         }}>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(16px, min(5vw, 32px), 32px)" }}>
