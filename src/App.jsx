@@ -22,11 +22,11 @@ function StarField() {
   );
 }
 
-const BTN_SIZE = "clamp(50px, min(17vw, 92px), 92px)";
-const BTN_FS = "clamp(18px, min(6.5vw, 32px), 32px)";
-const GRID_GAP = "clamp(5px, min(1.8vw, 10px), 10px)";
-const DISP_FS = "clamp(40px, min(18vw, 92px), 92px)";
-const SIDE_PAD = "clamp(8px, min(2.5vw, 18px), 18px)";
+const BTN_SIZE = "clamp(48px, min(17vw, 82px), 82px)";
+const BTN_FS = "clamp(18px, min(6.5vw, 30px), 30px)";
+const GRID_GAP = "clamp(4px, min(1.5vw, 8px), 8px)";
+const DISP_FS = "clamp(38px, min(18vw, 92px), 92px)";
+const SIDE_PAD = "clamp(4px, min(1.5vw, 10px), 10px)";
 
 function Btn({ label, onPress, variant = "num" }) {
   const [down, setDown] = useState(false);
