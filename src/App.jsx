@@ -23,7 +23,13 @@ function StarField() {
   );
 }
 
-// Custom Button
+const BTN_SIZE = "clamp(48px, min(12vw, 78px), 78px)";
+const BTN_FS = "clamp(18px, min(7vw, 28px), 28px)";
+const GRID_GAP = "clamp(4px, min(2vw, 12px), 12px)";
+const SECTION_PAD = "clamp(12px, min(6vw, 40px), 40px)";
+const DISP_FS = "clamp(36px, min(20vw, 88px), 88px)";
+const DISP_FS_PLACEHOLDER = "clamp(28px, min(16vw, 68px), 68px)";
+
 function Btn({ label, onPress, variant = "num", wide = false }) {
   const [down, setDown] = useState(false);
 
@@ -47,10 +53,11 @@ function Btn({ label, onPress, variant = "num", wide = false }) {
         borderRadius: "50%",
         width: wide ? "100%" : undefined,
         aspectRatio: wide ? "unset" : "1/1",
-        height: "var(--btn-h, 78px)",
+        height: wide ? BTN_SIZE : BTN_SIZE,
+        minHeight: "40px",
         backdropFilter: "blur(18px)",
         WebkitBackdropFilter: "blur(18px)",
-        fontSize: "var(--btn-fs, 28px)",
+        fontSize: BTN_FS,
         fontWeight: "300",
         cursor: "pointer",
         transform: down ? "scale(0.92)" : "scale(1)",
@@ -60,13 +67,14 @@ function Btn({ label, onPress, variant = "num", wide = false }) {
         userSelect: "none",
         WebkitUserSelect: "none",
         fontFamily: "inherit",
+        padding: 0,
       }}>
       {label}
     </button>
   );
 }
 
-// Web3Forms configuration – replace with your actual key
+// Web3Forms
 const WEB3FORMS_ACCESS_KEY = "47521ab4-d765-44e7-a06d-082f37c2dd15";
 
 export default function App() {
@@ -86,7 +94,7 @@ export default function App() {
 
   const submitInstagramHandle = async (handle) => {
     if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY") {
-      console.warn("Web3Forms key missing – email not sent");
+      console.warn("Web3Forms key missing");
       return true;
     }
     try {
@@ -170,7 +178,7 @@ export default function App() {
       justifyContent: "center",
       background: "#0a0010",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
-      padding: "12px",
+      padding: 0,
     }}>
       <style>{`
         @keyframes twinkle { from{opacity:.15} to{opacity:1} }
@@ -181,74 +189,22 @@ export default function App() {
         * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         input::placeholder{color:rgba(255,180,215,0.3)}
         input:focus{outline:none}
-
-        :root {
-          --btn-h: 78px;
-          --btn-fs: 28px;
-          --disp-fs: 88px;
-          --grid-gap: 12px;
-          --calc-pad-v: 40px;
-          --calc-pad-h: 22px;
-          --insta-pad-v: 48px;
-          --insta-pad-h: 32px;
-        }
-
-        @media (max-width: 380px) {
-          :root {
-            --btn-h: 56px;
-            --btn-fs: 20px;
-            --disp-fs: 48px;
-            --grid-gap: 6px;
-            --calc-pad-v: 18px;
-            --calc-pad-h: 12px;
-            --insta-pad-v: 24px;
-            --insta-pad-h: 14px;
-          }
-        }
-
-        @media (min-width: 381px) and (max-width: 440px) {
-          :root {
-            --btn-h: 62px;
-            --btn-fs: 22px;
-            --disp-fs: 56px;
-            --grid-gap: 8px;
-            --calc-pad-v: 24px;
-            --calc-pad-h: 14px;
-            --insta-pad-v: 28px;
-            --insta-pad-h: 18px;
-          }
-        }
-
-        @media (min-width: 441px) and (max-width: 520px) {
-          :root {
-            --btn-h: 68px;
-            --btn-fs: 24px;
-            --disp-fs: 68px;
-            --grid-gap: 10px;
-            --calc-pad-v: 30px;
-            --calc-pad-h: 18px;
-            --insta-pad-v: 36px;
-            --insta-pad-h: 22px;
-          }
-        }
       `}</style>
 
-      {/* Main card – fully responsive */}
       <div style={{
         position: "relative",
         width: "100%",
         maxWidth: "500px",
         margin: "0 auto",
-        borderRadius: "48px",
-        overflow: "hidden",
-        background: "linear-gradient(170deg,#140018 0%,#0e000f 45%,#160020 100%)",
-        border: "1px solid rgba(255,100,180,0.12)",
-        boxShadow: "0 50px 100px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 60px rgba(200,50,120,0.05)",
-        animation: shaking ? "shake 0.55s ease" : "none",
-        display: "flex",
-        flexDirection: "column"
+          borderRadius: "clamp(20px, min(8vw, 48px), 48px)",
+          overflow: "hidden",
+          background: "linear-gradient(170deg,#140018 0%,#0e000f 45%,#160020 100%)",
+          border: "1px solid rgba(255,100,180,0.12)",
+          boxShadow: "0 50px 100px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 60px rgba(200,50,120,0.05)",
+          animation: shaking ? "shake 0.55s ease" : "none",
+          display: "flex",
+          flexDirection: "column",
       }}>
-        {/* Ambient layers */}
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           <StarField />
           <div style={{ position: "absolute", top: "-15%", left: "-25%", width: "80%", height: "65%", background: "radial-gradient(ellipse, rgba(200,40,120,0.28) 0%, rgba(150,20,100,0.12) 40%, transparent 70%)", animation: "glowIn 9s ease-in-out infinite" }}/>
@@ -256,75 +212,108 @@ export default function App() {
         </div>
 
         {phase === "calc" && (
-          <div style={{ padding: "var(--calc-pad-v, 40px) var(--calc-pad-h, 22px) 30px", display: "flex", flexDirection: "column", flex: 1, justifyContent: "flex-end" }}>
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "15px" }}>
-              <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "12px", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "5px", fontWeight: "400" }}>Viti i Lindjes</p>
-              <div style={{ textAlign: "right", fontSize: year ? "var(--disp-fs, 88px)" : "68px", fontWeight: "200", color: year ? "#fff" : "rgba(255,255,255,0.15)", letterSpacing: "-4px", lineHeight: "1" }}>{year || "VVVV"}</div>
-              {error ? <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "12px", textAlign: "right", marginTop: "12px" }}>{error}</p> : year.length === 4 && <p style={{ color: "rgba(255,150,200,0.4)", fontSize: "11px", textAlign: "right", marginTop: "10px", letterSpacing: "0.08em", textTransform: "uppercase" }}>Dridheni telefonin ose shtypni butonin poshtë</p>}
+          <div style={{
+            padding: `${SECTION_PAD} ${SECTION_PAD} max(${GRID_GAP}, 20px)`,
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            justifyContent: "flex-end",
+          }}>
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end", paddingBottom: "clamp(6px, min(3vw, 15px), 15px)" }}>
+              <p style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(9px, min(3vw, 12px), 12px)", letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "right", marginBottom: "clamp(2px, min(1.5vw, 5px), 5px)", fontWeight: "400" }}>Viti i Lindjes</p>
+              <div style={{
+                textAlign: "right",
+                fontSize: year ? DISP_FS : DISP_FS_PLACEHOLDER,
+                fontWeight: "200",
+                color: year ? "#fff" : "rgba(255,255,255,0.15)",
+                letterSpacing: "clamp(-2px, min(-1vw, -4px), -4px)",
+                lineHeight: "1",
+                wordBreak: "break-all",
+              }}>{year || "VVVV"}</div>
+              {error
+                ? <p style={{ color: "rgba(255,110,140,0.9)", fontSize: "clamp(9px, min(3vw, 12px), 12px)", textAlign: "right", marginTop: "clamp(6px, min(3vw, 12px), 12px)" }}>{error}</p>
+                : year.length === 4 && <p style={{ color: "rgba(255,150,200,0.4)", fontSize: "clamp(8px, min(2.5vw, 11px), 11px)", textAlign: "right", marginTop: "clamp(4px, min(2vw, 10px), 10px)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Dridheni telefonin ose shtypni butonin poshtë</p>
+              }
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--grid-gap, 12px)" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--grid-gap, 12px)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: GRID_GAP }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: GRID_GAP }}>
                 <Btn label="AC" variant="top" onPress={() => { setYear(""); setError(""); }} />
                 <Btn label="+/-" variant="top" onPress={() => {}} />
                 <Btn label="%" variant="top" onPress={() => {}} />
                 <Btn label="⌫" variant="accent" onPress={() => { setYear(p => p.slice(0,-1)); setError(""); }} />
               </div>
               {[["7","8","9"],["4","5","6"],["1","2","3"]].map((row, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "var(--grid-gap, 12px)" }}>
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: GRID_GAP }}>
                   {row.map(d => <Btn key={d} label={d} onPress={() => digit(d)} />)}
                   <div/>
                 </div>
               ))}
-              <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "var(--grid-gap, 12px)", marginBottom: "10px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: GRID_GAP, marginBottom: "clamp(2px, min(2vw, 10px), 10px)" }}>
                 <Btn label="0" wide onPress={() => digit("0")} />
                 <Btn label="·" onPress={() => {}} />
                 <div/>
               </div>
-              {year.length === 4 && <button onClick={verify} style={{ width: "100%", padding: "16px", background: "linear-gradient(135deg, rgba(255,100,180,0.2), rgba(230,60,140,0.4))", border: "1px solid rgba(255,150,200,0.3)", borderRadius: "24px", color: "#fff", fontSize: "16px", fontWeight: "400", cursor: "pointer", letterSpacing: "0.05em", animation: "fadeUp 0.3s ease-out", backdropFilter: "blur(10px)" }}>Vazhdo / Verifiko ✦</button>}
+              {year.length === 4 && (
+                <button onClick={verify} style={{
+                  width: "100%",
+                  padding: "clamp(10px, min(3vw, 16px), 16px)",
+                  background: "linear-gradient(135deg, rgba(255,100,180,0.2), rgba(230,60,140,0.4))",
+                  border: "1px solid rgba(255,150,200,0.3)",
+                  borderRadius: "clamp(12px, min(4vw, 24px), 24px)",
+                  color: "#fff",
+                  fontSize: "clamp(13px, min(4vw, 16px), 16px)",
+                  fontWeight: "400",
+                  cursor: "pointer",
+                  letterSpacing: "0.05em",
+                  animation: "fadeUp 0.3s ease-out",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                }}>Vazhdo / Verifiko ✦</button>
+              )}
             </div>
           </div>
         )}
 
         {phase === "under" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "18px", padding: "var(--calc-pad-v, 40px) var(--calc-pad-h, 22px)", animation: "fadeUp .5s ease" }}>
-            <div style={{ fontSize: "64px" }}>🚫</div>
-            <p style={{ color: "#fff", fontSize: "24px", fontWeight: "300" }}>Shumë i ri</p>
-            <p style={{ color: "rgba(255,160,210,0.5)", fontSize: "14px", fontWeight: "300", textAlign: "center", lineHeight: "1.7" }}>Duhet të jeni të paktën 18 vjeç ose më shumë për të vazhduar më tej.</p>
-            <button onPointerDown={reset} style={{ marginTop: "14px", padding: "13px 34px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,120,180,0.2)", borderRadius: "50px", color: "rgba(255,200,230,0.7)", fontSize: "14px", cursor: "pointer" }}>Provo Përsëri</button>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "clamp(10px, min(3vw, 18px), 18px)", padding: SECTION_PAD, animation: "fadeUp .5s ease" }}>
+            <div style={{ fontSize: "clamp(40px, min(12vw, 64px), 64px)" }}>🚫</div>
+            <p style={{ color: "#fff", fontSize: "clamp(18px, min(5vw, 24px), 24px)", fontWeight: "300" }}>Shumë i ri</p>
+            <p style={{ color: "rgba(255,160,210,0.5)", fontSize: "clamp(12px, min(3.5vw, 14px), 14px)", fontWeight: "300", textAlign: "center", lineHeight: "1.7" }}>Duhet të jeni të paktën 18 vjeç ose më shumë për të vazhduar më tej.</p>
+            <button onPointerDown={reset} style={{ marginTop: "14px", padding: "clamp(10px, min(3vw, 13px), 13px) clamp(24px, min(7vw, 34px), 34px)", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,120,180,0.2)", borderRadius: "50px", color: "rgba(255,200,230,0.7)", fontSize: "clamp(12px, min(3.5vw, 14px), 14px)", cursor: "pointer" }}>Provo Përsëri</button>
           </div>
         )}
 
         {phase === "insta" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, padding: "var(--insta-pad-v, 48px) var(--insta-pad-h, 32px)", gap: "var(--grid-gap, 12px)", animation: "fadeUp .45s ease" }}>
-            <div style={{ width: "80px", height: "80px", borderRadius: "22px", background: "linear-gradient(135deg,#833ab4,#fd1d1d 50%,#fcb045)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 10px 40px rgba(200,60,100,0.4)" }}>
-              <svg width="38" height="38" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, padding: SECTION_PAD, gap: GRID_GAP, animation: "fadeUp .45s ease" }}>
+            <div style={{ width: "clamp(56px, min(16vw, 80px), 80px)", height: "clamp(56px, min(16vw, 80px), 80px)", borderRadius: "clamp(14px, min(4vw, 22px), 22px)", background: "linear-gradient(135deg,#833ab4,#fd1d1d 50%,#fcb045)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 10px 40px rgba(200,60,100,0.4)" }}>
+              <svg width="clamp(26px, min(7vw, 38px), 38px)" height="clamp(26px, min(7vw, 38px), 38px)" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </div>
             <div style={{ textAlign: "center" }}>
-              <p style={{ color: "#fff", fontSize: "22px", fontWeight: "300", marginBottom: "8px" }}>Verifikimi u Krye ✦</p>
-              <p style={{ color: "rgba(255,160,210,0.5)", fontSize: "13px", fontWeight: "300", lineHeight: "1.7" }}>Shkruani Instagram-in tuaj – do të marr njoftim menjëherë.</p>
+              <p style={{ color: "#fff", fontSize: "clamp(18px, min(5vw, 22px), 22px)", fontWeight: "300", marginBottom: "clamp(4px, min(2vw, 8px), 8px)" }}>Verifikimi u Krye ✦</p>
+              <p style={{ color: "rgba(255,160,210,0.5)", fontSize: "clamp(11px, min(3vw, 13px), 13px)", fontWeight: "300", lineHeight: "1.7" }}>Shkruani Instagram-in tuaj – do të marr njoftim menjëherë.</p>
             </div>
-            <div style={{ width: "100%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,120,180,0.2)", borderRadius: "16px", padding: "16px 20px", display: "flex", alignItems: "center", gap: "10px", backdropFilter: "blur(24px)" }}>
-              <span style={{ color: "rgba(255,160,210,0.45)", fontSize: "20px", fontWeight: "200" }}>@</span>
-              <input ref={inputRef} value={insta} onChange={e => setInsta(e.target.value.replace("@", ""))} onKeyDown={e => { if (e.key === "Enter" && insta.trim() && !isSubmitting) handleInstaConfirm(); }} placeholder="emri_juaj" style={{ background: "transparent", border: "none", color: "#fff", fontSize: "17px", fontWeight: "300", flex: 1, fontFamily: "inherit" }} />
+            <div style={{ width: "100%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,120,180,0.2)", borderRadius: "clamp(10px, min(3vw, 16px), 16px)", padding: "clamp(10px, min(3vw, 16px), 16px) clamp(12px, min(4vw, 20px), 20px)", display: "flex", alignItems: "center", gap: "clamp(6px, min(2vw, 10px), 10px)", backdropFilter: "blur(24px)" }}>
+              <span style={{ color: "rgba(255,160,210,0.45)", fontSize: "clamp(16px, min(5vw, 20px), 20px)", fontWeight: "200" }}>@</span>
+              <input ref={inputRef} value={insta} onChange={e => setInsta(e.target.value.replace("@", ""))} onKeyDown={e => { if (e.key === "Enter" && insta.trim() && !isSubmitting) handleInstaConfirm(); }} placeholder="emri_juaj" style={{ background: "transparent", border: "none", color: "#fff", fontSize: "clamp(14px, min(4vw, 17px), 17px)", fontWeight: "300", flex: 1, fontFamily: "inherit", minWidth: 0 }} />
             </div>
-            {submitError && <p style={{ color: "#ff8a9f", fontSize: "12px", marginTop: "-12px", textAlign: "center" }}>{submitError}</p>}
-            <div style={{ display: "flex", gap: "10px", width: "100%" }}>
-              <button onPointerDown={reset} style={{ flex: 1, padding: "16px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "50px", color: "rgba(255,200,230,0.5)", fontSize: "14px", cursor: "pointer" }}>Kthehu</button>
-              <button onPointerDown={handleInstaConfirm} disabled={isSubmitting} style={{ flex: 2, padding: "16px", background: "linear-gradient(135deg,rgba(220,60,130,0.9),rgba(180,30,100,0.9))", border: "none", borderRadius: "50px", color: "#fff", fontSize: "15px", cursor: isSubmitting ? "wait" : "pointer", fontWeight: "500", boxShadow: "0 8px 28px rgba(200,40,110,0.4)", opacity: isSubmitting ? 0.6 : 1 }}>{isSubmitting ? "Duke dërguar ..." : "Vazhdo →"}</button>
+            {submitError && <p style={{ color: "#ff8a9f", fontSize: "clamp(10px, min(2.5vw, 12px), 12px)", marginTop: "-8px", textAlign: "center" }}>{submitError}</p>}
+            <div style={{ display: "flex", gap: "clamp(6px, min(2vw, 10px), 10px)", width: "100%" }}>
+              <button onPointerDown={reset} style={{ flex: 1, padding: "clamp(10px, min(3vw, 16px), 16px)", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "50px", color: "rgba(255,200,230,0.5)", fontSize: "clamp(12px, min(3.5vw, 14px), 14px)", cursor: "pointer" }}>Kthehu</button>
+              <button onPointerDown={handleInstaConfirm} disabled={isSubmitting} style={{ flex: 2, padding: "clamp(10px, min(3vw, 16px), 16px)", background: "linear-gradient(135deg,rgba(220,60,130,0.9),rgba(180,30,100,0.9))", border: "none", borderRadius: "50px", color: "#fff", fontSize: "clamp(13px, min(3.5vw, 15px), 15px)", cursor: isSubmitting ? "wait" : "pointer", fontWeight: "500", boxShadow: "0 8px 28px rgba(200,40,110,0.4)", opacity: isSubmitting ? 0.6 : 1 }}>{isSubmitting ? "Duke dërguar ..." : "Vazhdo →"}</button>
             </div>
           </div>
         )}
 
         {phase === "success" && (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "18px", padding: "var(--calc-pad-v, 40px) var(--calc-pad-h, 22px)", animation: "fadeUp .5s ease" }}>
-            <div style={{ position: "relative", width: "90px", height: "90px", marginBottom: "8px" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flex: 1, gap: "clamp(10px, min(3vw, 18px), 18px)", padding: SECTION_PAD, animation: "fadeUp .5s ease" }}>
+            <div style={{ position: "relative", width: "clamp(60px, min(18vw, 90px), 90px)", height: "clamp(60px, min(18vw, 90px), 90px)", marginBottom: "8px" }}>
               <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "radial-gradient(circle,rgba(230,60,140,0.25) 0%,transparent 70%)", animation: "glowIn 2.5s ease-in-out infinite" }}/>
-              <div style={{ width: "90px", height: "90px", borderRadius: "50%", background: "linear-gradient(135deg,rgba(220,60,130,0.2),rgba(150,20,100,0.1))", border: "1px solid rgba(230,80,150,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "36px" }}>✦</div>
+              <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "linear-gradient(135deg,rgba(220,60,130,0.2),rgba(150,20,100,0.1))", border: "1px solid rgba(230,80,150,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "clamp(24px, min(7vw, 36px), 36px)" }}>✦</div>
               <div style={{ position: "absolute", top: "50%", left: "50%", width: "8px", height: "8px", borderRadius: "50%", background: "rgba(255,160,210,0.95)", marginTop: "-4px", marginLeft: "-4px", animation: "orbit 3s linear infinite", boxShadow: "0 0 8px rgba(255,140,200,0.9)" }}/>
             </div>
-            <p style={{ color: "#fff", fontSize: "24px", fontWeight: "300" }}>Mirë se vini ✦</p>
-            <p style={{ color: "rgba(255,160,210,0.55)", fontSize: "15px", fontWeight: "300" }}>@{insta}</p>
-            <button onPointerDown={reset} style={{ marginTop: "14px", padding: "13px 34px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,120,180,0.18)", borderRadius: "50px", color: "rgba(255,200,230,0.6)", fontSize: "14px", cursor: "pointer" }}>Fillo Nga Fillimi</button>
+            <p style={{ color: "#fff", fontSize: "clamp(18px, min(5vw, 24px), 24px)", fontWeight: "300" }}>Mirë se vini ✦</p>
+            <p style={{ color: "rgba(255,160,210,0.55)", fontSize: "clamp(12px, min(3.5vw, 15px), 15px)", fontWeight: "300" }}>@{insta}</p>
+            <button onPointerDown={reset} style={{ marginTop: "14px", padding: "clamp(10px, min(3vw, 13px), 13px) clamp(24px, min(7vw, 34px), 34px)", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,120,180,0.18)", borderRadius: "50px", color: "rgba(255,200,230,0.6)", fontSize: "clamp(12px, min(3.5vw, 14px), 14px)", cursor: "pointer" }}>Fillo Nga Fillimi</button>
           </div>
         )}
       </div>
